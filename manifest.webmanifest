@@ -1,0 +1,29 @@
+{
+ "name": "Souffle — rééducation respiratoire",
+ "short_name": "Souffle",
+ "lang": "fr",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#f4efe6",
+ "theme_color": "#2f6f73",
+ "description": "Réapprendre à respirer bas, lent et léger : 2 séances de 5 minutes par jour.",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
