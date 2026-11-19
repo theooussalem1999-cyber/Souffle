@@ -6,7 +6,7 @@ L'appli tient en quelques fichiers statiques. Pas de serveur, pas de compte, pas
 
 ## Adresse
 
-https://theooussalem1999-cyber.github.io/souffle/
+https://theooussalem1999-cyber.github.io/Souffle/
 
 ## Installer sur Android
 
