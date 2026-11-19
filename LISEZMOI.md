@@ -32,6 +32,10 @@ https://theooussalem1999-cyber.github.io/Souffle/
 
 L'étape avance seule chaque semaine ; on peut la changer à la main. Suivi : ressenti du souffle (1 à 10), pause de contrôle chronométrée, calendrier des séances, série de jours.
 
+## Nez étroit
+
+Le réglage **Nez étroit** (accueil, activé par défaut) autorise une bouche détendue quand l'air ne passe pas par le nez sans forcer : la lenteur et la respiration par le ventre comptent plus que la voie d'entrée. L'onglet **Comprendre** explique comment repérer l'effort et quand consulter un ORL.
+
 ## Rappels
 
 Une appli web ne peut pas sonner seule à heure fixe. Dans **Progrès > Rappels**, les boutons créent des événements Google Agenda quotidiens (matin et soir), ou un fichier d'agenda `.ics`.
