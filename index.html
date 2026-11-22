@@ -434,12 +434,16 @@ function tone(f){
 }
 
 /* ---------- Moteur de séance ---------- */
+const PACES=[[0.8,"Plus vif"],[1,"Normal"],[1.25,"Plus lent"],[1.5,"Très lent"]];
+let PACE=1; try{ const v=parseFloat(localStorage.getItem(KEY+"-pace")); if(v>0) PACE=v; }catch(e){}
 let run=null;
 const ov=$("ov");
 function openSession(kind){
   const w=curWeek();
   const isMicro = kind==="micro";
-  const r = isMicro ? {in:4,out:6,hold:0} : w[kind];
+  const base = isMicro ? {in:4,out:6,hold:0} : w[kind];
+  const scale = r0 => ({in:Math.max(2,Math.round(r0.in*PACE)),out:Math.max(3,Math.round(r0.out*PACE)),hold:r0.hold?Math.max(1,Math.round(r0.hold*PACE)):0});
+  let r = scale(base);
   const total = isMicro ? MICRO_S : SESSION_S;
   const setup = isMicro
     ? ["Ferme la bouche, desserre la mâchoire.","Laisse tomber les épaules.","Pose une main sur le ventre."]
@@ -449,7 +453,9 @@ function openSession(kind){
   $("ovIntro").style.display="block"; $("ovRun").style.display="none"; $("barWrap").style.display="none";
   $("ovIntro").innerHTML = `<h2>${isMicro?"30 secondes pour toi":"Installe-toi"}</h2>
     <ol>${setup.map(s=>`<li>${N(s)}</li>`).join("")}</ol>
-    <p class="mute">Rythme : ${fmtRhythm(r)} · ${isMicro?"45 s":"5 min"}. Suis le cercle : il gonfle quand ton ventre gonfle.</p>
+    <p class="mute">Rythme : <strong id="rLbl">${fmtRhythm(r)}</strong> · ${isMicro?"45 s":"5 min"}. Suis le cercle : il gonfle quand ton ventre gonfle.</p>
+    <div class="weeks" id="paceBtns" style="margin-top:4px">${PACES.map(([v,l])=>`<button data-p="${v}" class="${v===PACE?"on":""}">${l}</button>`).join("")}</div>
+    <p class="mute" style="font-size:12.5px">Choisis le rythme où tu ne manques pas d'air et ne te sens pas pressé·e. Ton choix est gardé.</p>
     <p class="mute">Vertiges ou inconfort ? Arrête et reprends une respiration normale.</p>
     <label class="toggle" style="margin-top:12px"><input type="checkbox" id="snd" ${soundOn?"checked":""}> Gong aux changements</label>
     <div class="row" style="margin-top:10px;gap:8px"><span class="mute" style="flex:none;font-size:14px">Volume</span>
@@ -457,6 +463,9 @@ function openSession(kind){
       <button class="btn small ghost" id="volTest" style="flex:none">Tester</button></div>
     <p class="mute" style="font-size:12.5px">Monte aussi le volume « médias » du téléphone.</p>`;
   $("ovBtns").innerHTML=`<button class="btn" id="go">C'est parti</button>`;
+  $("paceBtns").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; PACE=parseFloat(b.dataset.p);
+    try{localStorage.setItem(KEY+"-pace",PACE);}catch(x){} r=scale(base); $("rLbl").textContent=fmtRhythm(r);
+    $("paceBtns").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); };
   $("vol").oninput=e=>{ VOL=parseFloat(e.target.value); try{localStorage.setItem(KEY+"-vol",VOL);}catch(x){} };
   $("vol").onchange=()=>{ const was=soundOn; soundOn=true; tone(392); soundOn=was; };
   $("volTest").onclick=()=>{ const was=soundOn; soundOn=true; tone(392); soundOn=was; };
